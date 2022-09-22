@@ -429,7 +429,7 @@
         var height = elem.getBoundingClientRect().height;
 
         if (includeMargin) {
-          var style = elem.currentStyle || window.getComputedStyle(elem);
+          var style = elem.currentStyle || window?.getComputedStyle(elem);
           return height + parseFloat(style.marginTop) + parseFloat(style.marginBottom);
         }
 
@@ -494,12 +494,12 @@
 
         this.tribute.range.getDocument().addEventListener("MSPointerDown", this.menuClickEvent, false);
         this.tribute.range.getDocument().addEventListener("mousedown", this.menuClickEvent, false);
-        window.addEventListener("resize", this.windowResizeEvent);
+        window?.addEventListener("resize", this.windowResizeEvent);
 
         if (this.menuContainer) {
           this.menuContainer.addEventListener("scroll", this.menuContainerScrollEvent, false);
         } else {
-          window.addEventListener("scroll", this.menuContainerScrollEvent);
+          window?.addEventListener("scroll", this.menuContainerScrollEvent);
         }
       }
     }, {
@@ -507,12 +507,12 @@
       value: function unbind(menu) {
         this.tribute.range.getDocument().removeEventListener("mousedown", this.menuClickEvent, false);
         this.tribute.range.getDocument().removeEventListener("MSPointerDown", this.menuClickEvent, false);
-        window.removeEventListener("resize", this.windowResizeEvent);
+        window?.removeEventListener("resize", this.windowResizeEvent);
 
         if (this.menuContainer) {
           this.menuContainer.removeEventListener("scroll", this.menuContainerScrollEvent, false);
         } else {
-          window.removeEventListener("scroll", this.menuContainerScrollEvent);
+          window?.removeEventListener("scroll", this.menuContainerScrollEvent);
         }
       }
     }, {
@@ -724,7 +724,7 @@
           return this.tribute.collection.iframe.contentWindow.getSelection();
         }
 
-        return window.getSelection();
+        return window?.getSelection();
       }
     }, {
       key: "getNodePositionInParent",
@@ -927,11 +927,11 @@
     }, {
       key: "isMenuOffScreen",
       value: function isMenuOffScreen(coordinates, menuDimensions) {
-        var windowWidth = window.innerWidth;
-        var windowHeight = window.innerHeight;
+        var windowWidth = window?.innerWidth;
+        var windowHeight = window?.innerHeight;
         var doc = document.documentElement;
-        var windowLeft = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-        var windowTop = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+        var windowLeft = (window?.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+        var windowTop = (window?.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
         var menuTop = typeof coordinates.top === 'number' ? coordinates.top : windowTop + windowHeight - coordinates.bottom - menuDimensions.height;
         var menuRight = typeof coordinates.right === 'number' ? coordinates.right : coordinates.left + menuDimensions.width;
         var menuBottom = typeof coordinates.bottom === 'number' ? coordinates.bottom : coordinates.top + menuDimensions.height;
@@ -967,7 +967,7 @@
         div.id = 'input-textarea-caret-position-mirror-div';
         this.getDocument().body.appendChild(div);
         var style = div.style;
-        var computed = window.getComputedStyle ? getComputedStyle(element) : element.currentStyle;
+        var computed = window?.getComputedStyle ? getComputedStyle(element) : element.currentStyle;
         style.whiteSpace = 'pre-wrap';
 
         if (element.nodeName !== 'INPUT') {
@@ -1041,12 +1041,12 @@
         };
         var menuDimensions = this.getMenuDimensions();
         var availableSpaceOnTop = rect.top;
-        var availableSpaceOnBottom = window.innerHeight - (rect.top + rect.height); //check to see where's the right place to put the menu vertically
+        var availableSpaceOnBottom = window?.innerHeight - (rect.top + rect.height); //check to see where's the right place to put the menu vertically
 
         if (availableSpaceOnBottom < menuDimensions.height) {
           if (availableSpaceOnTop >= menuDimensions.height || availableSpaceOnTop > availableSpaceOnBottom) {
             coordinates.top = 'auto';
-            coordinates.bottom = window.innerHeight - rect.top;
+            coordinates.bottom = window?.innerHeight - rect.top;
 
             if (availableSpaceOnBottom < menuDimensions.height) {
               coordinates.maxHeight = availableSpaceOnTop;
@@ -1059,12 +1059,12 @@
         }
 
         var availableSpaceOnLeft = rect.left;
-        var availableSpaceOnRight = window.innerWidth - rect.left; //check to see where's the right place to put the menu horizontally
+        var availableSpaceOnRight = window?.innerWidth - rect.left; //check to see where's the right place to put the menu horizontally
 
         if (availableSpaceOnRight < menuDimensions.width) {
           if (availableSpaceOnLeft >= menuDimensions.width || availableSpaceOnLeft > availableSpaceOnRight) {
             coordinates.left = 'auto';
-            coordinates.right = window.innerWidth - rect.left;
+            coordinates.right = window?.innerWidth - rect.left;
 
             if (availableSpaceOnRight < menuDimensions.width) {
               coordinates.maxWidth = availableSpaceOnLeft;
@@ -1103,21 +1103,21 @@
         var elemBottom = elemTop + clientRect.height;
 
         if (elemTop < 0) {
-          window.scrollTo(0, window.pageYOffset + clientRect.top - reasonableBuffer);
-        } else if (elemBottom > window.innerHeight) {
-          var maxY = window.pageYOffset + clientRect.top - reasonableBuffer;
+          window?.scrollTo(0, window?.pageYOffset + clientRect.top - reasonableBuffer);
+        } else if (elemBottom > window?.innerHeight) {
+          var maxY = window?.pageYOffset + clientRect.top - reasonableBuffer;
 
-          if (maxY - window.pageYOffset > maxScrollDisplacement) {
-            maxY = window.pageYOffset + maxScrollDisplacement;
+          if (maxY - window?.pageYOffset > maxScrollDisplacement) {
+            maxY = window?.pageYOffset + maxScrollDisplacement;
           }
 
-          var targetY = window.pageYOffset - (window.innerHeight - elemBottom);
+          var targetY = window?.pageYOffset - (window?.innerHeight - elemBottom);
 
           if (targetY > maxY) {
             targetY = maxY;
           }
 
-          window.scrollTo(0, targetY);
+          window?.scrollTo(0, targetY);
         }
       }
     }, {
@@ -1662,11 +1662,11 @@
       value: function placeCaretAtEnd(el) {
         el.focus();
 
-        if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+        if (typeof window?.getSelection != "undefined" && typeof document.createRange != "undefined") {
           var range = document.createRange();
           range.selectNodeContents(el);
           range.collapse(false);
-          var sel = window.getSelection();
+          var sel = window?.getSelection();
           sel.removeAllRanges();
           sel.addRange(range);
         } else if (typeof document.body.createTextRange != "undefined") {
@@ -1681,7 +1681,7 @@
       key: "insertTextAtCursor",
       value: function insertTextAtCursor(text) {
         var sel, range;
-        sel = window.getSelection();
+        sel = window?.getSelection();
         range = sel.getRangeAt(0);
         range.deleteContents();
         var textNode = document.createTextNode(text);
